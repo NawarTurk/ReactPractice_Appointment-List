@@ -1,6 +1,8 @@
-import { BiCalendar} from 'react-icons/bi';
+import { BiCalendar, BiTrash} from 'react-icons/bi';
 import Search from './components/Search';
 import AddAppointment from './components/AddAppointment';
+import AppointmentInfo from './components/AppointmentInfo';
+import appointmentList from './data.json';
 
 
 function App() {
@@ -10,6 +12,14 @@ function App() {
         <BiCalendar className="inline-block text-red-400 align-top"/>Your Appointments</h1>
         <AddAppointment />
         <Search />
+
+        {/* <ul class="divide-y divide-grey-200">
+          {appointmentList
+            .map(appointment => (
+              <AppointmentInfo key={appointmentList.id}
+              appointment={appointment}/>
+            ))}
+        </ul> */}
    </div>
 
   );
