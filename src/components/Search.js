@@ -39,8 +39,10 @@ const DropDown = ({toggleSort}) => {
 }
 
 
-const Search = () => {
+const Search = ({searchTerm, onSearchTermChange}) => {
     const [toggleSort, setToggleSort] = useState(false);
+
+
     return (
         <div>
             <div>
@@ -48,7 +50,12 @@ const Search = () => {
                     <BiSearch />
                     <label htmlFor='query' />
                 </div>
-                <input type='text' name='query' id='query' value='' />
+                <input type='text' name='query' id='query' 
+                    value= {searchTerm}
+                    onChange = {event => {
+                        onSearchTermChange(event.target.value)
+                    }}
+                />
                 <div>
                     <div>
                         <button type="button" onClick={() => {setToggleSort(!toggleSort)}}>
