@@ -1,33 +1,44 @@
 import { BiSearch, BiCaretDown, BiCheck } from 'react-icons/bi';
 import { useState } from 'react';
 
-const DropDown = ({toggleSort}) => {
+const DropDown = ({toggleSort, onSortByChange, onOrderByChange, sortBy, orderBy}) => {
 
     return (
         <>
                 {
             toggleSort &&
-            <div>
+            <div className="relative">
             <div role="menu">
-                <div role="menuitem">
-                    Pet Name 
-                    <BiCheck />
+                <div onClick = {() => onSortByChange("petName")} role="menuitem"
+                    className ="flex items-center"
+                >
+                    <span className="mr-2">Pet Name</span>
+                    {sortBy === 'petName' && <BiCheck />}
                 </div>
-                <div role='menuitem'>
+                <div onClick = {() => onSortByChange("ownerName")} role='menuitem'
+                    className ="flex items-center"
+                >
                     Owner Name
-                    <BiCheck />
+                    {sortBy === 'ownerName' && <BiCheck />}
                 </div>
-                <div role='menuitem'>
+                <div onClick = {() => onSortByChange("aptDate")} role='menuitem'
+                    className ="flex items-center"
+                >
                     Date
-                    <BiCheck />
+                    {sortBy === 'aptDate' && <BiCheck />}
                 </div>
-                <div role='menuitem'>
+                <hr />
+                <div onClick= {() => onOrderByChange("asc")} role='menuitem'
+                    className ="flex items-center"
+                >
                     Asc
-                    <BiCheck />
+                    {orderBy === 'asc' && <BiCheck />}
                 </div>
-                <div role='menuitem'>
+                <div onClick = {() => onOrderByChange("desc")} role='menuitem'
+                    className ="flex items-center"
+                >
                     Desc
-                    <BiCheck />
+                    {orderBy === 'desc' && <BiCheck />}
                 </div>
             </div>
         </div>
@@ -39,13 +50,13 @@ const DropDown = ({toggleSort}) => {
 }
 
 
-const Search = ({searchTerm, onSearchTermChange}) => {
+const Search = ({searchTerm, onSearchTermChange, onSortByChange, onOrderByChange, sortBy, orderBy}) => {
     const [toggleSort, setToggleSort] = useState(false);
 
 
     return (
         <div>
-            <div>
+            <div className='flex'>
                 <div>
                     <BiSearch />
                     <label htmlFor='query' />
@@ -59,10 +70,20 @@ const Search = ({searchTerm, onSearchTermChange}) => {
                 <div>
                     <div>
                         <button type="button" onClick={() => {setToggleSort(!toggleSort)}}>
-                            Sort By <BiCaretDown />
+                            <div className='flex'>
+                            <span>Sort By  </span>
+                            <BiCaretDown />
+                            </div>
+                            
                         </button>
                     
-                        <DropDown toggleSort={toggleSort}/>
+                        <DropDown 
+                            toggleSort={toggleSort} 
+                            onSortByChange={onSortByChange}
+                            onOrderByChange={onOrderByChange}
+                            sortBy={sortBy} 
+                            orderBy={orderBy}
+                            />
                     </div>
                 </div>
             </div>

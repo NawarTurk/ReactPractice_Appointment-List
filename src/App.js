@@ -8,8 +8,9 @@ import importedAppointmentList from './data.json';
 
 function App() {
 const [appointmentList, setAppointmentList] = useState([]);
-
 const [searchTerm, setSearchTerm] = useState('');
+const [sortBy, setSortBy] = useState("ownerName");
+const [orderBy, setOrderBy] = useState("asc");
 
 const filteredAppointmentList = appointmentList.filter(
   appointment => {
@@ -19,7 +20,14 @@ const filteredAppointmentList = appointmentList.filter(
       appointment.aptNotes.toLowerCase().includes(searchTerm.toLowerCase())
     )
   }
-)
+).
+
+sort((a, b) => {
+  let order = (orderBy === "asc") ? 1 : -1;
+  return (
+        a[sortBy].toLowerCase() < b[sortBy].toLocaleLowerCase() ? -1*order : 1*order
+  )
+})
 
 
 useEffect(() => {
@@ -35,6 +43,10 @@ useEffect(() => {
         <Search 
           searchTerm = {searchTerm}
           onSearchTermChange ={searchTerm => setSearchTerm(searchTerm)}
+          onSortByChange = {sortBy => setSortBy(sortBy)}
+          onOrderByChange = {orderBy => setOrderBy(orderBy)}
+          orderBy = {orderBy}
+          sortBy = {sortBy}
         />
 
         <ul className="divide-y divide-grey-200">
